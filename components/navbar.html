@@ -1,0 +1,87 @@
+<nav class="bg-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between">
+            <!-- Logo -->
+            <div class="flex items-center py-4 px-2">
+                <a href="#" class="flex items-center gap-2">
+                    <img src="../assets/image/Meubel House_Logos-05.png" alt="">
+                    <span class="font-semibold text-gray-500 text-2xl">Furniro</span>
+                </a>
+            </div>
+
+            <!-- Primary Nav -->
+            <div class="hidden md:flex items-center space-x-1">
+                <a href="#"
+                    class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">Home</a>
+                <a href="#"
+                    class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">Products</a>
+                <a href="#"
+                    class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">Services</a>
+                <a href="#"
+                    class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">About</a>
+                <a href="#"
+                    class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">Contact</a>
+            </div>
+
+            <!-- Right Icons -->
+            <div class="hidden md:flex items-center space-x-3">
+                <a href="#" class="py-2 px-2 text-gray-500 hover:text-blue-500 transition duration-300">
+                    <i class="fas fa-search"></i>
+                </a>
+                <a href="#" class="py-2 px-2 text-gray-500 hover:text-blue-500 transition duration-300">
+                    <i class="far fa-heart"></i>
+                </a>
+                <a href="#" class="py-2 px-2 text-gray-500 hover:text-blue-500 transition duration-300 relative">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span
+                        class="absolute top-0 right-0 bg-blue-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                </a>
+                <a href="#" class="py-2 px-2 text-gray-500 hover:text-blue-500 transition duration-300">
+                    <i class="far fa-user"></i>
+                </a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden flex items-center">
+                <button class="outline-none mobile-menu-button">
+                    <svg class="w-6 h-6 text-gray-500 hover:text-blue-500" x-show="!showMenu" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="hidden mobile-menu">
+        <ul>
+            <li class="active"><a href="#" class="block text-sm px-2 py-4 text-white bg-blue-500 font-semibold">Home</a>
+            </li>
+            <li><a href="#" class="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300">Products</a>
+            </li>
+            <li><a href="#" class="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300">Services</a>
+            </li>
+            <li><a href="#" class="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300">About</a></li>
+            <li><a href="#" class="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300">Contact</a>
+            </li>
+        </ul>
+        <div class="flex justify-around py-4 bg-gray-100">
+            <a href="#" class="px-2 text-gray-500 hover:text-blue-500 transition duration-300">
+                <i class="fas fa-search"></i>
+            </a>
+            <a href="#" class="px-2 text-gray-500 hover:text-blue-500 transition duration-300">
+                <i class="far fa-heart"></i>
+            </a>
+            <a href="#" class="px-2 text-gray-500 hover:text-blue-500 transition duration-300 relative">
+                <i class="fas fa-shopping-cart"></i>
+                <span
+                    class="absolute top-0 right-0 bg-blue-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+            </a>
+            <a href="#" class="px-2 text-gray-500 hover:text-blue-500 transition duration-300">
+                <i class="far fa-user"></i>
+            </a>
+        </div>
+    </div>
+</nav>
