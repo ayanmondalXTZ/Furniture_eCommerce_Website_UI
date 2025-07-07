@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+    <!-- Sidebar -->
+    <div class="flex min-h-screen">
+        <aside class="w-64 bg-white shadow-md">
+            <div class="p-4 text-xl font-bold text-blue-600 border-b">Admin Panel</div>
+            <nav class="p-4 space-y-2">
+                <a href="#" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Dashboard</a>
+                <a href="#" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Users</a>
+                <a href="./product.html" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Products</a>
+                <a href="#" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Orders</a>
+                <a href="#" class="block px-4 py-2 rounded hover:bg-blue-100 text-gray-700">Settings</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col">
+            <!-- Navbar -->
+            <header class="bg-white shadow-md p-4 flex justify-between items-center">
+                <h1 class="text-2xl font-semibold">Dashboard</h1>
+                <div class="flex items-center space-x-4">
+                    <button class="text-gray-600 hover:text-blue-600"><i data-lucide="bell"></i></button>
+                    <button class="text-gray-600 hover:text-blue-600"><i data-lucide="user"></i></button>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <main class="p-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-4 rounded shadow">
+                        <h2 class="text-lg font-semibold">Users</h2>
+                        <p class="mt-2 text-gray-600">1,200</p>
+                    </div>
+                    <div class="bg-white p-4 rounded shadow">
+                        <h2 class="text-lg font-semibold">Orders</h2>
+                        <p class="mt-2 text-gray-600">875</p>
+                    </div>
+                    <div class="bg-white p-4 rounded shadow">
+                        <h2 class="text-lg font-semibold">Revenue</h2>
+                        <p class="mt-2 text-gray-600">₹3,45,000</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
