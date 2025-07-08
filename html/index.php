@@ -89,7 +89,7 @@
                         <span
                             class="absolute top-0 right-0 bg-blue-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
                     </a>
-                    <a href="#" class="py-2 px-2 text-gray-500 hover:text-blue-500 transition duration-300">
+                    <a href="profile.php" class="py-2 px-2 text-gray-500 hover:text-blue-500 transition duration-300">
                         <i class="far fa-user"></i>
                     </a>
                 </div>
@@ -165,7 +165,7 @@
 
                 <!-- Button -->
                 <a href="#"
-                    class="inline-block bg-yellow-700 text-white font-bold py-3 px-8 hover:bg-gray-100 hover:text-black transition duration-300">
+                    class="inline-block bg-yellow-700 text-white font-bold py-3 px-8 hover:bg-gray-100 hover:text-black transition duration-300 by-now-btn">
                     BUY NOW
                 </a>
             </div>
@@ -266,7 +266,11 @@
             </button>
         </div>
     </section>
-    <script src="../script/index.js"></script>
+    <script>
+        let btn = document.querySelector(".by-now-btn");
+        console.log(btn);
+
+    </script>
 </body>
 
 </html>
