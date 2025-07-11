@@ -1,3 +1,72 @@
+<?php
+session_start();
+
+include("../data/config.php");
+
+if (isset($_POST['create-account'])) {
+    $firstName = trim($_POST['firstName']);
+    $lastName = trim($_POST['lastName']);
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirmPassword'];
+
+    $errors = [];
+
+    // Validation
+    if (empty($firstName) || empty($lastName) || empty($email) || empty($password) || empty($confirm_password)) {
+        $errors[] = "All fields are required.";
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Email is not valid.";
+    }
+
+    if (strlen($password) < 8) {
+        $errors[] = "Password must be at least 8 characters long.";
+    }
+
+    if ($password !== $confirm_password) {
+        $errors[] = "Passwords do not match.";
+    }
+
+    // Check if email exists
+    $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        $errors[] = "Email already exists.";
+    }
+    $stmt->close();
+
+    // Show errors
+    if (!empty($errors)) {
+        foreach ($errors as $error) {
+            $_SESSION['error'] = $error;
+            // header("Location: ../html/signup.php");
+
+
+        }
+    } else {
+        // Password hash
+        $passHash = password_hash($password, PASSWORD_DEFAULT);
+
+        // Insert into DB securely
+        $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $firstName, $lastName, $email, $passHash);
+
+        if ($stmt->execute()) {
+            // Redirect to login or success page
+            header("Location: ../html/login.php");
+            exit();
+        } else {
+            echo "Something went wrong: " . $stmt->error;
+        }
+        $stmt->close();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,9 +93,16 @@
         <div
             class="absolute top-0 right-20 w-40 h-40 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000">
         </div>
-        <?php session_start(); ?>
 
+        <?php
+        if (isset($_SESSION['error'])) {
+            echo "<div style='color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 10px 15px; margin-bottom: 10px; border-radius: 5px; font-family: Arial, sans-serif;'>
+            {$_SESSION['error']}
+          </div>";
+            unset($_SESSION['error']);
 
+        }
+        ?>
         <!-- Signup card -->
         <div class="relative bg-white rounded-2xl shadow-2xl overflow-hidden animate__animated animate__fadeInUp">
             <div class="px-10 py-12">
@@ -43,19 +119,9 @@
 
                 <h2 class="text-center text-3xl font-extrabold text-gray-800 mb-8">Create your account</h2>
 
-                <form action="/Furniture_eCommerce_Website_UI/Furniture_eCommerce_Website_UI/data/signup_config.php"
-                    id="signupForm" class="space-y-4" method="POST">
+                <form action="#" id="signupForm" class="space-y-4" method="POST">
+
                     <div class="grid grid-cols-2 gap-4">
-                        <?php
-                        if (isset($_SESSION['error']) && is_array($_SESSION['error'])) {
-                            foreach ($_SESSION['error'] as $err) {
-                                echo "<div style='color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 10px 15px; margin-bottom: 10px; border-radius: 5px; font-family: Arial, sans-serif;'>
-                $err
-              </div>";
-                            }
-                            unset($_SESSION['error']); // clear after showing
-                        }
-                        ?>
                         <div class="relative group">
                             <input id="firstName" name="firstName" type="text" required
                                 class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 peer"
@@ -174,7 +240,7 @@
             <div class="px-10 py-4 bg-gray-50 border-t border-gray-200 text-center">
                 <p class="text-sm text-gray-600">
                     Already have an account?
-                    <a href="login.html" class="font-medium text-indigo-600 hover:text-indigo-500">Sign in</a>
+                    <a href="login.php" class="font-medium text-indigo-600 hover:text-indigo-500">Sign in</a>
                 </p>
             </div>
         </div>

@@ -1,3 +1,6 @@
+<?php
+session_start()
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,9 +92,19 @@
                         <span
                             class="absolute top-0 right-0 bg-blue-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
                     </a>
-                    <a href="profile.php" class="py-2 px-2 text-gray-500 hover:text-blue-500 transition duration-300">
-                        <i class="far fa-user"></i>
-                    </a>
+                    <div>
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <!-- Logged In: Show username or profile link -->
+                            <a href="profile.php" style="text-decoration: none;">
+                                👤
+                            </a>
+                        <?php else: ?>
+                            <!-- Not logged in: Redirect to login/signup -->
+                            <a href="signup.php" style="text-decoration: none;">
+                                👤
+                            </a>
+                        <?php endif; ?>
+                    </div>
                 </div>
 
                 <!-- Mobile menu button -->

@@ -42,8 +42,9 @@ if (isset($_POST['create-account'])) {
     // Show errors
     if (!empty($errors)) {
         foreach ($errors as $error) {
-            $_SESSION['error'] = $error;
-            header("Location: ../html/signup.php");
+            // $_SESSION['error'] = $error;
+            // header("Location: ../html/signup.php");
+            echo $error;
 
         }
     } else {

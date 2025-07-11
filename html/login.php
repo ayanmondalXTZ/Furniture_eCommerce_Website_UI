@@ -1,3 +1,48 @@
+<?php
+session_start();
+include("../data/config.php");
+if (isset($_POST["login"])) {
+    $password = $_POST["password"];
+    $email = $_POST["email"];
+
+    $sql = "SELECT id, password, first_name, last_name, email, created_at FROM users WHERE email = '$email'";
+
+
+
+    $result = mysqli_query($conn, $sql);
+
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+    // Always start session at top
+
+    if ($row) {
+        if (password_verify($password, $row["password"])) {
+            $_SESSION['user_id'] = $row['id'];
+            $_SESSION['first_name'] = $row['first_name'];
+            $_SESSION['last_name'] = $row['last_name'];
+            $_SESSION['email'] = $row['email'];
+            $created_at = $row['created_at'];
+            $date = date("d M Y", strtotime($created_at));
+            $_SESSION['date'] = $date;
+
+            echo $_SESSION['date'];
+            echo $_SESSION['user_id'];
+            echo $_SESSION['first_name'];
+            header("Location: index.php");
+            exit; // 🔴 Important: stop script after redirect
+        } else {
+            $_SESSION['log-error'] = "Password does not match";
+            header("Location: login.php"); // 🔁 Send back to login
+            exit;
+        }
+    } else {
+        $_SESSION['log-error'] = "User not found or incorrect credentials";
+        header("Location: login.php"); // 🔁 Send back to login
+        exit;
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,6 +68,15 @@
         <div
             class="absolute top-0 right-20 w-40 h-40 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000">
         </div>
+        <?php
+        if (isset($_SESSION['log-error'])) {
+            echo "<div style='color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 10px 15px; margin-bottom: 10px; border-radius: 5px; font-family: Arial, sans-serif;'>
+            {$_SESSION['log-error']}
+          </div>";
+            unset($_SESSION['log-error']);
+
+        }
+        ?>
 
         <!-- Login card -->
         <div class="relative bg-white rounded-2xl shadow-2xl overflow-hidden animate__animated animate__fadeInUp">
@@ -40,7 +94,7 @@
 
                 <h2 class="text-center text-3xl font-extrabold text-gray-800 mb-8">Welcome back</h2>
 
-                <form id="loginForm" class="space-y-6">
+                <form action="#" id="loginForm" class="space-y-6" method="POST">
                     <div class="relative group">
                         <input id="email" name="email" type="email" autocomplete="email" required
                             class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 peer"
@@ -67,14 +121,15 @@
                         </div>
 
                         <div class="text-sm">
-                            <a href="#" class="font-medium text-blue-600 hover:text-blue-500">Forgot password?</a>
+                            <a href="forget_password.php" class="font-medium text-blue-600 hover:text-blue-500">Forgot
+                                password?</a>
                         </div>
                     </div>
 
                     <div>
-                        <button type="submit" id="loginButton"
+                        <button type="submit" id="loginButton" name="login"
                             class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 transform hover:scale-[1.02]">
-                            Sign in
+                            Log in
                         </button>
                     </div>
                 </form>
