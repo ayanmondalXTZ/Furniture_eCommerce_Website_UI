@@ -81,9 +81,18 @@ session_start()
 
                 <!-- Right Icons -->
                 <div class="hidden md:flex items-center space-x-3">
-                    <a href="#" class="py-2 px-2 text-gray-500 hover:text-blue-500 transition duration-300">
-                        <i class="fas fa-search"></i>
-                    </a>
+                    <div class="flex items-center space-x-2">
+                        <!-- Search Icon -->
+                        <a href="#" id="searchIcon"
+                            class="py-2 px-2 text-gray-500 hover:text-blue-500 transition duration-300">
+                            <i class="fas fa-search"></i>
+                        </a>
+
+                        <!-- Search Input (Initially Hidden) -->
+                        <input type="text" id="searchInput" placeholder="Search..."
+                            class="hidden border rounded px-2 py-1 focus:outline-none focus:ring" />
+                    </div>
+
                     <a href="#" class="py-2 px-2 text-gray-500 hover:text-blue-500 transition duration-300">
                         <i class="far fa-heart"></i>
                     </a>
@@ -279,9 +288,28 @@ session_start()
             </button>
         </div>
     </section>
+
+
     <script>
         let btn = document.querySelector(".by-now-btn");
         console.log(btn);
+
+        const searchIcon = document.getElementById('searchIcon');
+        const searchInput = document.getElementById('searchInput');
+
+        searchIcon.addEventListener('click', function (e) {
+            e.preventDefault(); // prevent # link scroll
+            searchIcon.classList.add('hidden');      // hide icon
+            searchInput.classList.remove('hidden');  // show input
+            searchInput.focus();                     // focus input
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!searchInput.contains(e.target) && !searchIcon.contains(e.target)) {
+                searchInput.classList.add('hidden');
+                searchIcon.classList.remove('hidden');
+            }
+        });
 
     </script>
 </body>
